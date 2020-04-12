@@ -11,7 +11,7 @@ namespace BatteryChecker.Model
         {
             IGNORABLE_PROPERTIES_NAME.AddRange( new string[] { "EstimatedChargeRemaining", "Status",
                 "Availability", "BatteryStatus", "Chemistry", "Description", "CreationClassName",
-                "EstimatedRunTime", "PowerManagementCapabilities", "EstimatedRunTime"});
+                "EstimatedRunTime", "PowerManagementCapabilities", "EstimatedRunTime", "SystemCreationClassName"});
         }
 
         public BatteryInfo_WMI(string[] ignorableProp) : this()
@@ -21,6 +21,7 @@ namespace BatteryChecker.Model
                 IGNORABLE_PROPERTIES_NAME.Add(prop);
             }
         }
+
         public override Dictionary<string, string> GetBatteryInfo()
         {   
             using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\cimv2", @"SELECT * FROM Win32_Battery"))
