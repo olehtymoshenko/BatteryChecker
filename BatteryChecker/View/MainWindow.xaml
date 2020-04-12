@@ -1,0 +1,55 @@
+﻿<Window x:Class="BatteryChecker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BatteryChecker"
+        mc:Ignorable="d"
+        Title="BatteryChecker" Height="450" Width="400">
+    <Window.Resources>
+        <Style x:Key="DataGridStyle">
+            <Setter Property="DataGrid.IsReadOnly" Value="true"/>
+            <Setter Property="DataGrid.AutoGenerateColumns" Value="False"/>
+            <Setter Property="DataGrid.CanUserResizeRows" Value="False"/>
+            <Setter Property="DataGrid.CanUserReorderColumns" Value="False"/>
+            <Setter Property="DataGrid.SelectionMode" Value="Single"/>
+        </Style>
+        <Style x:Key="DataGridHeaderStyle">
+            <Setter Property="DataGridColumnHeader.HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" ></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem>
+                <MenuItem.Header>
+                    Отчет
+                </MenuItem.Header>
+            </MenuItem>
+            <Separator/>
+            <MenuItem>
+                <MenuItem.Header>
+                    О программе
+                </MenuItem.Header>
+            </MenuItem>
+        </Menu>
+
+        <DataGrid Grid.Row="1" Style="{StaticResource DataGridStyle}" x:Name="propertiesDG">
+            <DataGrid.Columns>
+                <!---->
+                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderStyle}"  Binding="{Binding Path = name}" Header="Параметр" Width="0.5*"/>
+                <DataGridTextColumn  HeaderStyle="{StaticResource DataGridHeaderStyle}" Binding="{Binding Path = value}" Header="Значение" Width="0.5*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Grid Grid.Row="2">
+            <TextBlock>Количество параметров:</TextBlock>
+            <TextBlock HorizontalAlignment="Right">tymoshenko inc.</TextBlock>
+        </Grid>
+    </Grid>
+</Window>
