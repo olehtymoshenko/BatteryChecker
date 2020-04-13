@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BatteryChecker.ViewModel;
 
-
 namespace BatteryChecker
 {
     /// <summary>
@@ -22,12 +21,19 @@ namespace BatteryChecker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel ViewModel { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            MainWindowViewModel viewModel = new MainWindowViewModel();
-            this.propertiesDG.ItemsSource = viewModel.properties;            
+            ViewModel = new MainWindowViewModel();
+            this.propertiesDG.ItemsSource = ViewModel.properties;            
+        }
+
+        public void CreateReportPDF_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CreateReportPDF();
         }
     }
 }

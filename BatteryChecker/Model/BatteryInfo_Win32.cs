@@ -13,7 +13,7 @@ namespace BatteryChecker.Model
         public BatteryInfo_Win32()
         {
             IGNORABLE_PROPERTIES_NAME.AddRange(new string[] { "Capabilities", "Reserved",
-                "DesignedCapacity", "FullChargedCapacity", "CycleCount"});
+                "DesignedCapacity", "FullChargedCapacity", "CycleCount", "Technology"});
         }
 
         public BatteryInfo_Win32(string[] ignorableProp) : this()
@@ -44,7 +44,7 @@ namespace BatteryChecker.Model
             {
                 if (fi.FieldType.IsArray)
                 {
-                    base.InsertPairToDictionary(fi.Name, Encoding.UTF8.GetString(((byte[])fi.GetValue(bi))));
+                    base.InsertPairToDictionary(fi.Name, (Encoding.UTF8.GetString((byte[])fi.GetValue(bi))).TrimEnd('\0'));
                 }
                 else
                 {

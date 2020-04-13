@@ -26,8 +26,10 @@ namespace BatteryChecker.ViewModel
 
         private void SetUpTimer()
         {
-            timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 5);
+            timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, 0, 5)
+            };
             timer.Tick += (sender, e) => { InitializeProperiesDictionary(); };
             timer.Start();
         }
@@ -46,19 +48,37 @@ namespace BatteryChecker.ViewModel
                 }
             }
         }
+
+        public void CreateReportPDF()
+        {
+            DefaultDialogs dialogs = new DefaultDialogs();
+            if(dialogs.SaveFileDialog()==true)
+            {
+                PdfReportCreator creatorPDF = new PdfReportCreator();
+                creatorPDF.CreateReport(dialogs.FilePath, properties.ToList());
+            }
+            else
+            {
+                dialogs.ShowMessage("Создание отчета отменено");
+            }
+        }
+
+        public void CreateReportPDF(string path)
+        {
+            PdfReportCreator creatorPDF = new PdfReportCreator();
+            creatorPDF.CreateReport(path, properties.ToList());
+        }
     }
-
-
 
     struct BatteryProperty
     {
-        public string name { get; set; }
-        public string value { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
 
         public BatteryProperty(string _name, string _value)
         {
-            name = _name;
-            value = _value;
+            Name = _name;
+            Value = _value;
         }
     }
 }

@@ -11,7 +11,8 @@ namespace BatteryChecker.Model
         {
             IGNORABLE_PROPERTIES_NAME.AddRange( new string[] { "EstimatedChargeRemaining", "Status",
                 "Availability", "BatteryStatus", "Chemistry", "Description", "CreationClassName",
-                "EstimatedRunTime", "PowerManagementCapabilities", "EstimatedRunTime", "SystemCreationClassName"});
+                "EstimatedRunTime", "PowerManagementCapabilities", "EstimatedRunTime",
+                "SystemCreationClassName", "PowerManagementSupported"});
         }
 
         public BatteryInfo_WMI(string[] ignorableProp) : this()

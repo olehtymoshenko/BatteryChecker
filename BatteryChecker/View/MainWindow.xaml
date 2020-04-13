@@ -30,6 +30,10 @@
                 <MenuItem.Header>
                     Отчет
                 </MenuItem.Header>
+                <MenuItem Click="CreateReportPDF_MenuItem_Click">
+                    <MenuItem.Header>Создать отчет в PDF</MenuItem.Header>
+                </MenuItem>
+                <MenuItem>Создать отчет в DOC</MenuItem>
             </MenuItem>
             <Separator/>
             <MenuItem>
@@ -42,8 +46,8 @@
         <DataGrid Grid.Row="1" Style="{StaticResource DataGridStyle}" x:Name="propertiesDG">
             <DataGrid.Columns>
                 <!---->
-                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderStyle}"  Binding="{Binding Path = name}" Header="Параметр" Width="0.5*"/>
-                <DataGridTextColumn  HeaderStyle="{StaticResource DataGridHeaderStyle}" Binding="{Binding Path = value}" Header="Значение" Width="0.5*"></DataGridTextColumn>
+                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderStyle}"  Binding="{Binding Path = Name}" Header="Параметр" Width="0.6*"/>
+                <DataGridTextColumn  HeaderStyle="{StaticResource DataGridHeaderStyle}" Binding="{Binding Path = Value}" Header="Значение" Width="0.4*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         

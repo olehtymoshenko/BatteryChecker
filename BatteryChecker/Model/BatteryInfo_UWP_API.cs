@@ -90,7 +90,7 @@ namespace BatteryChecker.Model
 
             foreach(PropertyInfo pi in allPI)
             {
-                 InsertPairToDictionary(pi.Name, pi.GetValue(battRep).ToString());
+                 InsertPairToDictionary(pi.Name, pi.GetValue(battRep));
             }
         }
 
@@ -101,7 +101,7 @@ namespace BatteryChecker.Model
 
             foreach(PropertyInfo pi in allPI)
             {
-                InsertPairToDictionary(pi.Name, pi.GetValue(null).ToString());
+                InsertPairToDictionary(pi.Name, pi.GetValue(null));
             }
         }
     }

@@ -60,6 +60,11 @@
     </Page>
     <Compile Include="Model\BatteryInfo_Win32.cs" />
     <Compile Include="Model\BatteryInfo_WMI.cs" />
+    <Compile Include="Model\DocReportCreator.cs" />
+    <Compile Include="Model\EnToRusTranslator.cs" />
+    <Compile Include="Model\IReportCreator.cs" />
+    <Compile Include="Model\PdfReportCreator.cs" />
+    <Compile Include="ViewModel\DefaultDialogs.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +108,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="itext7">
+      <Version>7.1.10</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Windows.SDK.Contracts">
       <Version>10.0.18362.2005</Version>
     </PackageReference>
