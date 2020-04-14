@@ -33,7 +33,7 @@ namespace BatteryChecker.Model
             en_rus_Dictionary.Add("DesignCapacityInMilliwattHours", "Заводская макс. емкость, мВтЧ");
             en_rus_Dictionary.Add("FullChargeCapacityInMilliwattHours", "Текущая макс. емкость, мВтЧ");
             en_rus_Dictionary.Add("RemainingCapacityInMilliwattHours", "Оставшаяся емкость, мВтЧ");
-            en_rus_Dictionary.Add("Status", "Статус");
+            en_rus_Dictionary.Add("Status", "Статус батареи");
             en_rus_Dictionary.Add("NotPresent", "Отсутстует");
             en_rus_Dictionary.Add("Discharging", "Разряжается");
             en_rus_Dictionary.Add("Idle", "Не используется");

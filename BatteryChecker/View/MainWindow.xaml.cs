@@ -35,5 +35,15 @@ namespace BatteryChecker
         {
             ViewModel.CreateReportPDF();
         }
+
+        public void CreateReportDOC_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CreateReportDOC();
+        }
+
+        public void InsertTableInTemplate_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InsertTableInTemplateDOC();
+        }
     }
 }

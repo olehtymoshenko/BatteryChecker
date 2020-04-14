@@ -33,7 +33,14 @@
                 <MenuItem Click="CreateReportPDF_MenuItem_Click">
                     <MenuItem.Header>Создать отчет в PDF</MenuItem.Header>
                 </MenuItem>
-                <MenuItem>Создать отчет в DOC</MenuItem>
+                <Separator/>
+                <MenuItem Click="CreateReportDOC_MenuItem_Click">
+                    <MenuItem.Header>Создать отчет в DOC</MenuItem.Header>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Click="InsertTableInTemplate_MenuItem_Click">
+                    <MenuItem.Header>Вставить таблицу в шаблон отчета DOC</MenuItem.Header>
+                </MenuItem>
             </MenuItem>
             <Separator/>
             <MenuItem>

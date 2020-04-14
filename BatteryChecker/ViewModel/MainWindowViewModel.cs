@@ -52,14 +52,10 @@ namespace BatteryChecker.ViewModel
         public void CreateReportPDF()
         {
             DefaultDialogs dialogs = new DefaultDialogs();
-            if(dialogs.SaveFileDialog()==true)
+            if(dialogs.SaveFileDialog(DefaultDialogs.TargetFileType.PDF)==true)
             {
                 PdfReportCreator creatorPDF = new PdfReportCreator();
                 creatorPDF.CreateReport(dialogs.FilePath, properties.ToList());
-            }
-            else
-            {
-                dialogs.ShowMessage("Создание отчета отменено");
             }
         }
 
@@ -67,6 +63,40 @@ namespace BatteryChecker.ViewModel
         {
             PdfReportCreator creatorPDF = new PdfReportCreator();
             creatorPDF.CreateReport(path, properties.ToList());
+        }
+
+
+        public void CreateReportDOC()
+        {
+            DefaultDialogs dialogs = new DefaultDialogs();
+            if (dialogs.SaveFileDialog(DefaultDialogs.TargetFileType.DOC_DOCX) == true)
+            {
+                DocReportCreator creatorDOC = new DocReportCreator();
+                creatorDOC.CreateReport(dialogs.FilePath, properties.ToList());
+            }
+        }
+
+        public void CreateReportDOC(string path)
+        {
+            DocReportCreator creatorDOC = new DocReportCreator();
+            creatorDOC.CreateReport(path, properties.ToList());
+        }
+
+
+        public void InsertTableInTemplateDOC()
+        {
+            DefaultDialogs dialogs = new DefaultDialogs();
+            if (dialogs.OpenFileDialog(DefaultDialogs.TargetFileType.DOC_DOCX) == true)
+            {
+                DocReportCreator creatorDOC = new DocReportCreator();
+                creatorDOC.InsertTableIntoTemplate(dialogs.FilePath, properties.ToList());
+            }
+        }
+
+        public void InsertTableInTemplateDOC(string path)
+        {
+            DocReportCreator creatorDOC = new DocReportCreator();
+            creatorDOC.InsertTableIntoTemplate(path, properties.ToList());
         }
     }
 
@@ -80,5 +110,19 @@ namespace BatteryChecker.ViewModel
             Name = _name;
             Value = _value;
         }
+
+        public string this[int i]
+        {
+            get
+            {
+                switch (i)
+                {
+                    case 0: return Name;
+                    case 1: return Value;
+                    default: return null;
+                }
+            }
+        }
+
     }
 }

@@ -10,11 +10,19 @@ namespace BatteryChecker.ViewModel
 {
     class DefaultDialogs
     {
+        public enum TargetFileType
+        {
+            PDF = 0,
+            DOC_DOCX = 1
+        }
+
         public string FilePath { get; set; }
 
-        public bool OpenFileDialog()
+        public bool OpenFileDialog(TargetFileType targetType)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            SetUpDialog(targetType, openFileDialog);
+
             if (openFileDialog.ShowDialog() == true)
             {
                 FilePath = openFileDialog.FileName;
@@ -23,16 +31,15 @@ namespace BatteryChecker.ViewModel
             return false;
         }
 
-        public bool SaveFileDialog()
+        public bool SaveFileDialog(TargetFileType targetType)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = @"PDF file(*.pdf)|*.pdf";
-            saveFileDialog.DefaultExt = "pdf";
-            saveFileDialog.AddExtension = true;
-            saveFileDialog.InitialDirectory = Environment.CurrentDirectory;
+            SetUpDialog(targetType, saveFileDialog);
+
             saveFileDialog.CreatePrompt = true;
             saveFileDialog.OverwritePrompt = true;
-            if(saveFileDialog.ShowDialog()==true)
+
+            if (saveFileDialog.ShowDialog() == true)
             {
                 FilePath = saveFileDialog.FileName;
                 return true;
@@ -43,6 +50,25 @@ namespace BatteryChecker.ViewModel
         public void ShowMessage(string msg)
         {
             MessageBox.Show(msg, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void SetUpDialog(TargetFileType targetFileType, FileDialog dialog)
+        {
+            switch (targetFileType)
+            {
+                case TargetFileType.PDF:
+                    {
+                        dialog.Filter = @"PDF file(*.pdf)|*.pdf";
+                        dialog.DefaultExt = "pdf";
+                    } break;
+                case TargetFileType.DOC_DOCX:
+                    {
+                        dialog.Filter = @"DOC file(*.doc)|*.doc|DOCX file(*.docx)|*.docx";
+                        dialog.DefaultExt = "doc";
+                    } break;
+            }
+            dialog.AddExtension = true;
+            dialog.InitialDirectory = Environment.CurrentDirectory;
         }
     }
 }

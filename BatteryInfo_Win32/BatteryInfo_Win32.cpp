@@ -1,6 +1,10 @@
-// Dynamic link library for getting information from win32 api
-// Creator: Tymoshenko Oleh
-// Course project 2020
+// Description:		Dynamic link library with native code
+//					for getting information about battery from win32 api
+// Creator:			Tymoshenko Oleh
+// Target project:	Course project 2020
+// Target platform: x64
+// Creation Date:	10.04.2020
+
 #include "BatteryInfo_Win32.h"
 
 extern "C" __declspec(dllexport) bool GetBatteryInfo(BATTERY_INFORMATION * batInfo)
@@ -87,17 +91,6 @@ extern "C" __declspec(dllexport) bool GetBatteryInfo(BATTERY_INFORMATION * batIn
 									&dwOut,
 									NULL))
 								{
-									//// Only non-UPS system batteries count
-									//cout << "BATTERY INFORMATION \n";
-									//cout << "Capabilities:" << bi.Capabilities << endl;
-									//cout << "Chemistry:" << bi.Chemistry << endl;
-									//cout << "CriticalBias:" << bi.CriticalBias << endl;
-									//cout << "CycleCount:" << bi.CycleCount << endl;
-									//cout << "DefaultAlert1:" << bi.DefaultAlert1 << endl;
-									//cout << "DefaultAlert2:" << bi.DefaultAlert2 << endl;
-									//cout << "DesignedCapacity:" << bi.DesignedCapacity << endl;
-									//cout << "FullChargedCapacity:" << bi.FullChargedCapacity << endl;
-									//wcout << "Technology:" << bi.Technology << endl;
 									*batInfo = bi;
 									CloseHandle(hBattery);
 									LocalFree(pdidd);
