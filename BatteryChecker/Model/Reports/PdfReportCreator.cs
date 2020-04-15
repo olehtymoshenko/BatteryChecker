@@ -7,7 +7,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Font;
 using iText.Layout.Element;
 
-namespace BatteryChecker.Model
+namespace BatteryChecker.Model.Reports
 {
     class PdfReportCreator: IReportCreator
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BatteryChecker.Model
+namespace BatteryChecker.Model.Reports
 {
     interface IReportCreator
     {

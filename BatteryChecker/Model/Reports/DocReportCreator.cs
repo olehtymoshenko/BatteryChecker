@@ -1,29 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BatteryChecker.ViewModel;
-using System.Drawing;
 using Spire.Doc;
 using Spire.Doc.Documents;
 using Spire.Doc.Fields;
-using System.Drawing.Text;
-using System.IO;
 
-namespace BatteryChecker.Model
+namespace BatteryChecker.Model.Reports
 {
-    class DocReportCreator : IReportCreator
+    class DocReportCreator : IReportCreatorWIthTemplates
     {
         private readonly string[] NAME_HEADERS_COLUMN = new string[] { "Свойство", "Значение" };
-        private readonly string SPECIAL_STRING_TO_REPLACE_WITH_TABLE = @"$tableBatteryInfo$";
+        public string SPECIAL_STRING_TO_REPLACE_WITH_TABLE { get; set; } = "$tableBatteryInfo$";
 
         public void CreateReport(string path, List<BatteryProperty> batteryInfo)
         {
             using (Document doc = new Document())
             {
                 Section s = doc.AddSection();
-
                 TextRange tr;
                 tr = InsertNewParagraph("Отчет о состоянии батареи\n", s, HorizontalAlignment.Center);
                 tr.CharacterFormat.FontName = "Arial";
@@ -39,7 +32,6 @@ namespace BatteryChecker.Model
 
                 doc.SaveToFile(path, FileFormat.Auto);
             }
-            System.Diagnostics.Process.Start(path);
         }
 
         public void InsertTableIntoTemplate(string path, List<BatteryProperty> batteryInfo)
@@ -67,13 +59,10 @@ namespace BatteryChecker.Model
 
         private void FillOutTable(Table table, List<BatteryProperty> batteryInfo)
         {
-
-
             table.TableFormat.HorizontalAlignment = RowAlignment.Center;
             table.PreferredWidth = new PreferredWidth(WidthType.Percentage, 90);
             table.ResetCells(batteryInfo.Count, NAME_HEADERS_COLUMN.Length);
-            //table.PreferredWidth = new PreferredWidth(WidthType.Auto, 0);
-
+         
             TableRow rowHead = table.Rows[0];
             rowHead.IsHeader = true;
             // Header row
@@ -93,11 +82,8 @@ namespace BatteryChecker.Model
             {
                 TableRow rowBody = table.Rows[i];
 
-                int countProp = batteryInfo[i].GetType().GetProperties().Length;
-
                 for(int j = 0; j < NAME_HEADERS_COLUMN.Length; j++)
                 {
-                    
                     Paragraph p = rowBody.Cells[j].AddParagraph();
                     p.Format.HorizontalAlignment = HorizontalAlignment.Center;
                     TextRange tr = p.AppendText(batteryInfo[i][j]);
@@ -111,9 +97,6 @@ namespace BatteryChecker.Model
                     foreach (Paragraph p in cell.Paragraphs)
                         p.Format.KeepFollow = true;
             
-                
-                
-            table.AutoFit(AutoFitBehaviorType.AutoFitToContents);
         }
 
         private TextRange InsertNewParagraph(string text, Section s, HorizontalAlignment hAlign)

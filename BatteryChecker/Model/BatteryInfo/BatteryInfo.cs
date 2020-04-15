@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BatteryChecker.Model.Translators;
 
-namespace BatteryChecker.Model
+/// <summary>
+/// Namespace for all battery info sources 
+/// </summary>
+namespace BatteryChecker.Model.BatteryInfo
 {
+    /// <summary>
+    /// Abstract class for all battery information source
+    /// </summary>
     public abstract class BatteryInfo
     {
         /// <summary>
@@ -16,7 +20,7 @@ namespace BatteryChecker.Model
         /// <summary>
         /// Method for getting information about battery
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Dictionary with pairs - property names, property value</returns>
         public abstract Dictionary<string, string> GetBatteryInfo();
 
         /// <summary>
@@ -24,8 +28,14 @@ namespace BatteryChecker.Model
         /// </summary>
         protected readonly List<string> IGNORABLE_PROPERTIES_NAME;
 
+        /// <summary>
+        /// Translator from eng to rus (translate name and values of battery properties)
+        /// </summary>
         private EnToRusTranslator Translator { get; set; }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         protected BatteryInfo()
         {
             batteryInfo = new Dictionary<string, string>();
@@ -33,6 +43,12 @@ namespace BatteryChecker.Model
             Translator = EnToRusTranslator.GetInstance();
         }
 
+        /// <summary>
+        /// Insert new pair(name, value) to dictionary with information about battery, method try unbox value from object
+        /// </summary>
+        /// <param name="key">param name (key for dictionary)</param>
+        /// <param name="value">param value (value in dictionary)</param>
+        /// <returns></returns>
         protected bool InsertPairToDictionary(string key, object value)
         {
             if (!IGNORABLE_PROPERTIES_NAME.Contains(key))
@@ -50,6 +66,12 @@ namespace BatteryChecker.Model
             return false;
         }
 
+        /// <summary>
+        /// Insert new pair(name, value) to dictionary with information about battery
+        /// </summary>
+        /// <param name="key">param name (key for dictionary)</param>
+        /// <param name="value">param value (value in dictionary)</param>
+        /// <returns></returns>
         protected bool InsertPairToDictionary(string key, string value)
         {
             if (!IGNORABLE_PROPERTIES_NAME.Contains(key))
@@ -66,6 +88,12 @@ namespace BatteryChecker.Model
             return false;
         }
 
+        /// <summary>
+        /// Method for unboxing object value to string, indeed method can detect only Timespan and convert
+        /// to string with formating, other values will convert by method ToString()
+        /// </summary>
+        /// <param name="value">Object for unboxing</param>
+        /// <returns>return string, which represent object value</returns>
         private string UnboxValue(object value)
         {
             if (value.GetType() == typeof(TimeSpan))

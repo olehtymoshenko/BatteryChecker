@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows;
 using System.Diagnostics;
+using BatteryChecker.Model.CommandKeys;
 
 namespace BatteryChecker
 {
@@ -23,10 +24,18 @@ namespace BatteryChecker
         [STAThread]
         static void Main(string[] args)
         {
-            App app = new App();
-            app.Startup += App_Startup;
-            app.Run();
-
+            if (args.Length > 0)
+            {
+                InputCommandKeysHandlers keysHandler = new InputCommandKeysHandlers(args);
+                keysHandler.ExecuteCommandKey();
+                System.Environment.Exit(0);
+            }
+            else
+            {
+                App app = new App();
+                app.Startup += App_Startup;
+                app.Run();
+            }
         }
 
         private static void App_Startup(object sender, StartupEventArgs e)

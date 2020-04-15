@@ -5,23 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BatteryChecker"
         mc:Ignorable="d"
-        Title="BatteryChecker" Height="450" Width="400">
+        WindowStartupLocation="CenterScreen" Width="500" Title="BatteryChecker" SizeToContent="Height" FontFamily="Microsoft YaHei Light"
+        FontSize="14" HorizontalAlignment="Center" MinHeight="547" MinWidth="500" ScrollViewer.HorizontalScrollBarVisibility="Auto">
     <Window.Resources>
-        <Style x:Key="DataGridStyle">
+        <Style TargetType="Menu">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style x:Key="DataGridStyle" TargetType="DataGrid">
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+
             <Setter Property="DataGrid.IsReadOnly" Value="true"/>
             <Setter Property="DataGrid.AutoGenerateColumns" Value="False"/>
             <Setter Property="DataGrid.CanUserResizeRows" Value="False"/>
             <Setter Property="DataGrid.CanUserReorderColumns" Value="False"/>
             <Setter Property="DataGrid.SelectionMode" Value="Single"/>
+
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="HorizontalGridLinesBrush" Value="Black" />
+            <Setter Property="VerticalGridLinesBrush" Value="Black" />
+            <Setter Property="AlternatingRowBackground" Value="#FFCFCFCF"/>
+
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <!-- Highlight a grid row as the mouse passes over -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightCyan" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="BorderBrush" Value="Black" />
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+
+                        <Setter Property="Padding" Value="4,3,4,3" />
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{TemplateBinding Padding}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style TargetType="Control">
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
         </Style>
-        <Style x:Key="DataGridHeaderStyle">
+
+        <Style TargetType="DataGridColumnHeader">
             <Setter Property="DataGridColumnHeader.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="18"/>
         </Style>
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" ></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -33,34 +106,28 @@
                 <MenuItem Click="CreateReportPDF_MenuItem_Click">
                     <MenuItem.Header>Создать отчет в PDF</MenuItem.Header>
                 </MenuItem>
-                <Separator/>
                 <MenuItem Click="CreateReportDOC_MenuItem_Click">
                     <MenuItem.Header>Создать отчет в DOC</MenuItem.Header>
                 </MenuItem>
-                <Separator/>
                 <MenuItem Click="InsertTableInTemplate_MenuItem_Click">
                     <MenuItem.Header>Вставить таблицу в шаблон отчета DOC</MenuItem.Header>
                 </MenuItem>
             </MenuItem>
-            <Separator/>
-            <MenuItem>
+            <MenuItem Click="ShowInfAboutApp_MenuItem_Click">
                 <MenuItem.Header>
                     О программе
                 </MenuItem.Header>
             </MenuItem>
+            <MenuItem Click="Exit_MenuItem_Click">
+                <MenuItem.Header>Выйти</MenuItem.Header>
+            </MenuItem>
         </Menu>
 
-        <DataGrid Grid.Row="1" Style="{StaticResource DataGridStyle}" x:Name="propertiesDG">
+        <DataGrid Style="{StaticResource DataGridStyle}" Grid.Row="1" x:Name="propertiesDG">
             <DataGrid.Columns>
-                <!---->
-                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderStyle}"  Binding="{Binding Path = Name}" Header="Параметр" Width="0.6*"/>
-                <DataGridTextColumn  HeaderStyle="{StaticResource DataGridHeaderStyle}" Binding="{Binding Path = Value}" Header="Значение" Width="0.4*"></DataGridTextColumn>
+                <DataGridTextColumn  Binding="{Binding Path = Name}" Header="Параметр" Width="0.55*"/>
+                <DataGridTextColumn  Binding="{Binding Path = Value}" Header="Значение" Width="0.45*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Grid Grid.Row="2">
-            <TextBlock>Количество параметров:</TextBlock>
-            <TextBlock HorizontalAlignment="Right">tymoshenko inc.</TextBlock>
-        </Grid>
     </Grid>
 </Window>

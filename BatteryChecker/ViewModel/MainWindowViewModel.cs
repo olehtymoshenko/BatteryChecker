@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BatteryChecker.Model;
 using System.Windows.Threading;
+using BatteryChecker.Model.Reports;
+using BatteryChecker.Model.BatteryInfo;
 
 namespace BatteryChecker.ViewModel
 {
@@ -49,37 +48,32 @@ namespace BatteryChecker.ViewModel
             }
         }
 
-        public void CreateReportPDF()
+        public void CreateReport(DefaultDialogs.TargetFileType format)
         {
             DefaultDialogs dialogs = new DefaultDialogs();
-            if(dialogs.SaveFileDialog(DefaultDialogs.TargetFileType.PDF)==true)
+            
+            if (dialogs.SaveFileDialog(format) == true)
             {
-                PdfReportCreator creatorPDF = new PdfReportCreator();
-                creatorPDF.CreateReport(dialogs.FilePath, properties.ToList());
+                IReportCreator creator = GetIReportCreatorFromReportFormat(format);
+                creator.CreateReport(dialogs.FilePath, properties.ToList());
             }
         }
 
-        public void CreateReportPDF(string path)
+        public void CreateReport(string path, DefaultDialogs.TargetFileType format)
         {
-            PdfReportCreator creatorPDF = new PdfReportCreator();
-            creatorPDF.CreateReport(path, properties.ToList());
+            IReportCreator creator = GetIReportCreatorFromReportFormat(format);
+            creator.CreateReport(path, properties.ToList());
         }
 
 
-        public void CreateReportDOC()
+        private IReportCreator GetIReportCreatorFromReportFormat(DefaultDialogs.TargetFileType format)
         {
-            DefaultDialogs dialogs = new DefaultDialogs();
-            if (dialogs.SaveFileDialog(DefaultDialogs.TargetFileType.DOC_DOCX) == true)
+            switch (format)
             {
-                DocReportCreator creatorDOC = new DocReportCreator();
-                creatorDOC.CreateReport(dialogs.FilePath, properties.ToList());
+                case DefaultDialogs.TargetFileType.DOC_DOCX: return new DocReportCreator() as IReportCreator;
+                case DefaultDialogs.TargetFileType.PDF: return new PdfReportCreator() as IReportCreator;
             }
-        }
-
-        public void CreateReportDOC(string path)
-        {
-            DocReportCreator creatorDOC = new DocReportCreator();
-            creatorDOC.CreateReport(path, properties.ToList());
+            return null;
         }
 
 
@@ -97,6 +91,14 @@ namespace BatteryChecker.ViewModel
         {
             DocReportCreator creatorDOC = new DocReportCreator();
             creatorDOC.InsertTableIntoTemplate(path, properties.ToList());
+        }
+
+        public void ShowInfAboutApp()
+        {
+            DefaultDialogs dialogs = new DefaultDialogs();
+            dialogs.ShowMessage("Программа предназначена для просмотра детальной\nинформации о батарее\n\n"+
+                "Приложение является курсовым проектом 2020\nстудента 535Б группы Тимошенко Олега\n\n"+
+                "E-mail: o.tymoshenko@student.csn.khai.edu", "Информация о программе");
         }
     }
 

@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using System.Management;
 
-namespace BatteryChecker.Model
+/// <summary>
+/// Namespace for all battery info sources 
+/// </summary>
+namespace BatteryChecker.Model.BatteryInfo
 {
+    /// <summary>
+    /// Class for getting information about battery from WMI
+    /// </summary>
     class BatteryInfo_WMI : BatteryInfo
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public BatteryInfo_WMI()
         {
             IGNORABLE_PROPERTIES_NAME.AddRange( new string[] { "EstimatedChargeRemaining", "Status",
@@ -15,6 +24,10 @@ namespace BatteryChecker.Model
                 "SystemCreationClassName", "PowerManagementSupported"});
         }
 
+        /// <summary>
+        /// Constructor with setting up ignorable params
+        /// </summary>
+        /// <param name="ignorableProp">params(names) which will not be returned</param>
         public BatteryInfo_WMI(string[] ignorableProp) : this()
         {
             foreach (string prop in ignorableProp)
@@ -23,6 +36,10 @@ namespace BatteryChecker.Model
             }
         }
 
+        /// <summary>
+        /// Method for getting information about battery
+        /// </summary>
+        /// <returns>Dictionary with pairs - property names, property value</returns>
         public override Dictionary<string, string> GetBatteryInfo()
         {   
             using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\cimv2", @"SELECT * FROM Win32_Battery"))

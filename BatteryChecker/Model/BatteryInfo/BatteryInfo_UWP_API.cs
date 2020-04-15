@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Windows.Devices.Power; // uwp api
-using Windows.System.Power;  // uwp 
+using Windows.Devices.Power; // for UWP API
+using Windows.System.Power;  // for UWP API
 using System.Reflection;
 
-namespace BatteryChecker.Model
+/// <summary>
+/// Namespace for all battery info sources 
+/// </summary>
+namespace BatteryChecker.Model.BatteryInfo
 {
+    /// <summary>
+    /// Class for getting information about battery from UWP API
+    /// </summary>
     public class BatteryInfo_UWP_API : BatteryInfo
     {
         /// <summary>
@@ -20,6 +26,9 @@ namespace BatteryChecker.Model
 
         private DataSource dataSourceMode;
 
+        /// <summary>
+        /// Property set which information will be returned
+        /// </summary>
         public DataSource DataSourceMode
         {
             get
@@ -38,17 +47,28 @@ namespace BatteryChecker.Model
             }
         }
 
+        /// <summary>
+        /// Default constuctor
+        /// </summary>
         public BatteryInfo_UWP_API()
         {
             DataSourceMode = DataSource.AllInformation;
             IGNORABLE_PROPERTIES_NAME.Add("BatteryStatus");
         }
 
+        /// <summary>
+        /// Constructor with setting up returning information mode
+        /// </summary>
+        /// <param name="mode">Set up which information will be returned</param>
         public BatteryInfo_UWP_API(DataSource mode):this()
         {
             DataSourceMode = mode;
         }
 
+        /// <summary>
+        /// Constructor with setting up returning information mode
+        /// </summary>
+        /// <param name="newIgnorobleProperties">params(names) which will not be returned</param>
         public BatteryInfo_UWP_API(string[] newIgnorobleProperties) : this()
         {
             foreach(string propName in newIgnorobleProperties)
@@ -57,6 +77,10 @@ namespace BatteryChecker.Model
             }
         }
 
+        /// <summary>
+        /// Method for getting information about battery
+        /// </summary>
+        /// <returns>Dictionary with pairs - property names, property value</returns>
         public override Dictionary<string, string> GetBatteryInfo()
         {
             switch (DataSourceMode)
@@ -81,6 +105,9 @@ namespace BatteryChecker.Model
             return batteryInfo;
         }
 
+        /// <summary>
+        /// Get battery info from BatteryReport class
+        /// </summary>
         private void GetInfoFromBatteryReport()
         {
             BatteryReport battRep = Battery.AggregateBattery.GetReport(); // get summary info of all batterys
@@ -94,6 +121,9 @@ namespace BatteryChecker.Model
             }
         }
 
+        /// <summary>
+        /// Get battery info from PowerManager class
+        /// </summary>
         private void GetInfoFromPowerManager()
         {
             Type powManType = typeof(PowerManager);

@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using BatteryChecker.ViewModel;
 
 namespace BatteryChecker
@@ -33,17 +20,27 @@ namespace BatteryChecker
 
         public void CreateReportPDF_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.CreateReportPDF();
+            ViewModel.CreateReport(DefaultDialogs.TargetFileType.PDF);
         }
 
         public void CreateReportDOC_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.CreateReportDOC();
+            ViewModel.CreateReport(DefaultDialogs.TargetFileType.DOC_DOCX);
         }
 
         public void InsertTableInTemplate_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.InsertTableInTemplateDOC();
+        }
+
+        public void ShowInfAboutApp_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ShowInfAboutApp();
+        }
+
+        public void Exit_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(0);
         }
     }
 }

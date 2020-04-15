@@ -1,23 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Windows;
 
+/// <summary>
+/// Namespace for viewmodel component of application
+/// </summary>
 namespace BatteryChecker.ViewModel
 {
+    /// <summary>
+    /// Class for using default windows dialogs
+    /// </summary>
     class DefaultDialogs
     {
+        /// <summary>
+        /// Represent file type (extension)
+        /// </summary>
         public enum TargetFileType
         {
             PDF = 0,
             DOC_DOCX = 1
         }
 
+        /// <summary>
+        /// Filepath which using in OpenFileDialog or SaveFileDialog
+        /// </summary>
         public string FilePath { get; set; }
 
+        /// <summary>
+        /// Show OpenFIleDialog
+        /// </summary>
+        /// <param name="targetType">required files type</param>
+        /// <returns>true, if dialog closed with true (user press on OK button)</returns>
         public bool OpenFileDialog(TargetFileType targetType)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -31,6 +44,11 @@ namespace BatteryChecker.ViewModel
             return false;
         }
 
+        /// <summary>
+        /// Show SaveFileDialog
+        /// </summary>
+        /// <param name="targetType">required files type</param>
+        /// <returns>true, if dialog closed with true (user press on OK button)</returns>
         public bool SaveFileDialog(TargetFileType targetType)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -47,11 +65,21 @@ namespace BatteryChecker.ViewModel
             return false;
         }
 
-        public void ShowMessage(string msg)
+        /// <summary>
+        /// Show message using MessageBox
+        /// </summary>
+        /// <param name="msg">dialog message</param>
+        /// <param name="head">caption</param>
+        public void ShowMessage(string msg, string head)
         {
-            MessageBox.Show(msg, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(msg, head, MessageBoxButton.OK);
         }
 
+        /// <summary>
+        /// Set up FileDialog for required file type
+        /// </summary>
+        /// <param name="targetFileType"></param>
+        /// <param name="dialog"></param>
         private void SetUpDialog(TargetFileType targetFileType, FileDialog dialog)
         {
             switch (targetFileType)
