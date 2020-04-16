@@ -6,26 +6,28 @@
         xmlns:local="clr-namespace:BatteryChecker"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" Width="500" Title="BatteryChecker" SizeToContent="Height" FontFamily="Microsoft YaHei Light"
-        FontSize="14" HorizontalAlignment="Center" MinHeight="547" MinWidth="500" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        FontSize="14" HorizontalAlignment="Center" MinHeight="550" MinWidth="500" ScrollViewer.HorizontalScrollBarVisibility="Auto">
     <Window.Resources>
+        <!-- Style for Menu -->
         <Style TargetType="Menu">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
+        <!-- Style for DataGrid -->
         <Style x:Key="DataGridStyle" TargetType="DataGrid">
             <Setter Property="Height" Value="Auto"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="CanUserSortColumns" Value="False"/>
-            <Setter Property="SelectionUnit" Value="FullRow"/>
 
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
             <Setter Property="DataGrid.IsReadOnly" Value="true"/>
             <Setter Property="DataGrid.AutoGenerateColumns" Value="False"/>
             <Setter Property="DataGrid.CanUserResizeRows" Value="False"/>
             <Setter Property="DataGrid.CanUserReorderColumns" Value="False"/>
             <Setter Property="DataGrid.SelectionMode" Value="Single"/>
-
+            
             <Setter Property="BorderBrush" Value="Black" />
             <Setter Property="HorizontalGridLinesBrush" Value="Black" />
             <Setter Property="VerticalGridLinesBrush" Value="Black" />
@@ -46,12 +48,14 @@
             <Setter Property="CellStyle">
                 <Setter.Value>
                     <Style TargetType="DataGridCell">
+                        <!-- Change a row cell style if cell selected-->
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Background" Value="#ff66ccff" />
                                 <Setter Property="BorderBrush" Value="Transparent" />
                                 <Setter Property="Foreground" Value="Black" />
                             </Trigger>
+                            <!-- Change a row cell style if cell focused-->
                             <Trigger Property="IsFocused" Value="True">
                                 <Setter Property="Background" Value="#ff66ccff" />
                                 <Setter Property="BorderBrush" Value="Black" />
@@ -59,7 +63,7 @@
                                 <Setter Property="Foreground" Value="Black" />
                             </Trigger>
                         </Style.Triggers>
-
+                        
                         <Setter Property="Padding" Value="4,3,4,3" />
                         <Setter Property="BorderBrush" Value="Transparent"/>
                         <Setter Property="Background" Value="Transparent"/>
@@ -85,7 +89,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        
+        <!--Style for datagrid colums header-->
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="DataGridColumnHeader.HorizontalContentAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="18"/>

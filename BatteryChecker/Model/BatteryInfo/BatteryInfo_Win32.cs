@@ -36,18 +36,25 @@ namespace BatteryChecker.Model.BatteryInfo
         }
 
         /// <summary>
-        /// Method for getting information about battery
+        /// Method for getting information about battery from win32 structure - BATTERY_INFORMATION
         /// </summary>
         /// <returns>Dictionary with pairs - property names, property value</returns>
         public override Dictionary<string, string> GetBatteryInfo()
         {
-            BATTERY_INFORMATION bi = new BATTERY_INFORMATION();
-            if (LibWrap_Win32_BatteryInfo.GetBatteryInfo(ref bi))
+            try
             {
-                ConvertBATT_INFO_To_Dictionary(bi);
-                return base.batteryInfo;
+                BATTERY_INFORMATION bi = new BATTERY_INFORMATION();
+                if (LibWrap_Win32_BatteryInfo.GetBatteryInfo(ref bi))
+                {
+                    ConvertBATT_INFO_To_Dictionary(bi);
+                    return base.batteryInfo;
+                }
+                return null;
             }
-            return null;
+            catch(Exception e)
+            {
+                throw new Exception("Не удалось получить информацию от Win32 API\n" + e.Message);
+            }
         }
 
         /// <summary>

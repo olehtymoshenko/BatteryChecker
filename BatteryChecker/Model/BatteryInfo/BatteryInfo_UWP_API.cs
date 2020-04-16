@@ -78,31 +78,38 @@ namespace BatteryChecker.Model.BatteryInfo
         }
 
         /// <summary>
-        /// Method for getting information about battery
+        /// Method for getting information about battery from UWP API
         /// </summary>
         /// <returns>Dictionary with pairs - property names, property value</returns>
         public override Dictionary<string, string> GetBatteryInfo()
         {
-            switch (DataSourceMode)
+            try
             {
-                case DataSource.AllInformation:
-                    {
-                        GetInfoFromBatteryReport(); // get info from BatteryReport class
-                        GetInfoFromPowerManager(); // get info from PowerManager class
-                    }
-                    break;
-                case DataSource.OnlyBatteryReportClass:
-                    {
-                        GetInfoFromBatteryReport(); // get info from BatteryReport class
-                    }
-                    break;
-                case DataSource.OnlyPowerManagerClass:
-                    {
-                        GetInfoFromPowerManager(); // get info from PowerManager class
-                    }
-                    break;
+                switch (DataSourceMode)
+                {
+                    case DataSource.AllInformation:
+                        {
+                            GetInfoFromBatteryReport(); // get info from BatteryReport class
+                            GetInfoFromPowerManager(); // get info from PowerManager class
+                        }
+                        break;
+                    case DataSource.OnlyBatteryReportClass:
+                        {
+                            GetInfoFromBatteryReport(); // get info from BatteryReport class
+                        }
+                        break;
+                    case DataSource.OnlyPowerManagerClass:
+                        {
+                            GetInfoFromPowerManager(); // get info from PowerManager class
+                        }
+                        break;
+                }
+                return batteryInfo;
             }
-            return batteryInfo;
+            catch (Exception e)
+            {
+                throw new Exception("Не удалось получить информацию от UWP API\n"+e.Message);
+            }
         }
 
         /// <summary>

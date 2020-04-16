@@ -37,45 +37,52 @@ namespace BatteryChecker.Model.BatteryInfo
         }
 
         /// <summary>
-        /// Method for getting information about battery
+        /// Method for getting information about battery from WMI class - Win32_Battery
         /// </summary>
         /// <returns>Dictionary with pairs - property names, property value</returns>
         public override Dictionary<string, string> GetBatteryInfo()
-        {   
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\cimv2", @"SELECT * FROM Win32_Battery"))
+        {
+            try
             {
-                ManagementObjectCollection collection = searcher.Get();
-
-                StringBuilder tmpProp = new StringBuilder("");
-
-                foreach (ManagementObject mo in collection)
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\cimv2", @"SELECT * FROM Win32_Battery"))
                 {
-                    foreach (PropertyData property in mo.Properties)
+                    ManagementObjectCollection collection = searcher.Get();
+
+                    StringBuilder tmpProp = new StringBuilder("");
+
+                    foreach (ManagementObject mo in collection)
                     {
-                        if (property.Value != null)
+                        foreach (PropertyData property in mo.Properties)
                         {
-                            if (property.Value.GetType().IsArray)
+                            if (property.Value != null)
                             {
-                                foreach (var i in (Array)property.Value)
+                                if (property.Value.GetType().IsArray)
                                 {
-                                    tmpProp.Append(i.ToString() + ";");
+                                    foreach (var i in (Array)property.Value)
+                                    {
+                                        tmpProp.Append(i.ToString() + ";");
+                                    }
+                                }
+                                else
+                                {
+                                    tmpProp.Append(property.Value);
                                 }
                             }
                             else
                             {
-                                tmpProp.Append(property.Value);
+                                continue;
                             }
+                            InsertPairToDictionary(property.Name, tmpProp.ToString());
+                            tmpProp.Clear();
                         }
-                        else
-                        {
-                            continue;
-                        }
-                        InsertPairToDictionary(property.Name, tmpProp.ToString());
-                        tmpProp.Clear();
                     }
                 }
+                return base.batteryInfo;
             }
-            return base.batteryInfo;
+            catch(Exception e)
+            {
+                throw new Exception("Не удалось получить информацию от WMI\n" + e.Message);
+            }
         }
     }
 }

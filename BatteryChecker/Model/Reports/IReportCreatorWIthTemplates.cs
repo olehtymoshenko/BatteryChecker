@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
+/// <summary>
+/// Namespace for creating reports with battery information
+/// </summary>
 namespace BatteryChecker.Model.Reports
 {
+    /// <summary>
+    /// IReportCreator advanced abillity to insert battery information to template 
+    /// </summary>
     interface IReportCreatorWIthTemplates:IReportCreator
     {
+        /// <summary>
+        /// Special string which will be replaced by battery information
+        /// </summary>
         string SPECIAL_STRING_TO_REPLACE_WITH_TABLE { get; set; }
-        void InsertTableIntoTemplate(string path, List<ViewModel.BatteryProperty> batteryInfo);
-
+        /// <summary>
+        /// Insert battery information to existing file (template)
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="batteryInfo"></param>
+        void InsertBatteryInfoIntoTemplate(string path, List<ViewModel.BatteryProperty> batteryInfo);
     }
 }

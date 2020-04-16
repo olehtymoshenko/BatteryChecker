@@ -33,15 +33,22 @@ namespace BatteryChecker.ViewModel
         /// <returns>true, if dialog closed with true (user press on OK button)</returns>
         public bool OpenFileDialog(TargetFileType targetType)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            SetUpDialog(targetType, openFileDialog);
-
-            if (openFileDialog.ShowDialog() == true)
+            try
             {
-                FilePath = openFileDialog.FileName;
-                return true;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                SetUpDialog(targetType, openFileDialog);
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    FilePath = openFileDialog.FileName;
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch(Exception e)
+            {
+                throw new Exception("Не удалось запустить диалог для открытия файла.\n Системное описание ошибки" + e.Message);
+            }
         }
 
         /// <summary>
@@ -51,18 +58,25 @@ namespace BatteryChecker.ViewModel
         /// <returns>true, if dialog closed with true (user press on OK button)</returns>
         public bool SaveFileDialog(TargetFileType targetType)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            SetUpDialog(targetType, saveFileDialog);
-
-            saveFileDialog.CreatePrompt = true;
-            saveFileDialog.OverwritePrompt = true;
-
-            if (saveFileDialog.ShowDialog() == true)
+            try
             {
-                FilePath = saveFileDialog.FileName;
-                return true;
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                SetUpDialog(targetType, saveFileDialog);
+
+                saveFileDialog.CreatePrompt = true;
+                saveFileDialog.OverwritePrompt = true;
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    FilePath = saveFileDialog.FileName;
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                throw new Exception("Не удалось запустить диалог для сохранения файла.\n Системное описание ошибки" + e.Message);
+            }
         }
 
         /// <summary>
@@ -70,7 +84,7 @@ namespace BatteryChecker.ViewModel
         /// </summary>
         /// <param name="msg">dialog message</param>
         /// <param name="head">caption</param>
-        public void ShowMessage(string msg, string head)
+        public static void ShowMessage(string msg, string head)
         {
             MessageBox.Show(msg, head, MessageBoxButton.OK);
         }
