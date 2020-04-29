@@ -8,7 +8,7 @@ namespace BatteryChecker.Model.Reports
     /// <summary>
     /// IReportCreator advanced abillity to insert battery information to template 
     /// </summary>
-    interface IReportCreatorWIthTemplates:IReportCreator
+    public interface IReportCreatorWIthTemplates:IReportCreator
     {
         /// <summary>
         /// Special string which will be replaced by battery information

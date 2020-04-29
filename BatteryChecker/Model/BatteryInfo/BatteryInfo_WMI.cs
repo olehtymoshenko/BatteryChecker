@@ -11,7 +11,7 @@ namespace BatteryChecker.Model.BatteryInfo
     /// <summary>
     /// Class for getting information about battery from WMI
     /// </summary>
-    class BatteryInfo_WMI : BatteryInfo
+    public class BatteryInfo_WMI : BatteryInfo
     {
         /// <summary>
         /// Default constructor

@@ -1,23 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
+/// <summary>
+/// Namespace for all translators
+/// </summary>
 namespace BatteryChecker.Model.Translators
 {
+    /// <summary>
+    /// Class for English to Russian translation
+    /// Singleton pattern
+    /// </summary>
     public class EnToRusTranslator
     {
-        private static EnToRusTranslator instance; // singleton
+        /// <summary>
+        /// variable to contain instance to this class
+        /// </summary>
+        private static EnToRusTranslator instance;
 
+        /// <summary>
+        /// En-Rus dictionary
+        /// </summary>
         private readonly Dictionary<string, string> en_rus_Dictionary;
 
+        /// <summary>
+        /// Private constuctor for initialize fields
+        /// </summary>
         private EnToRusTranslator()
         {
             en_rus_Dictionary = new Dictionary<string, string>();
             InitializeDictionary();
         }
 
+        /// <summary>
+        /// Get instance of singleton class
+        /// </summary>
+        /// <returns></returns>
         public static EnToRusTranslator GetInstance()
         {
             if(instance == null)
@@ -27,6 +43,9 @@ namespace BatteryChecker.Model.Translators
             return instance;
         }
 
+        /// <summary>
+        /// Initialize En-Rus dictionary
+        /// </summary>
         private void InitializeDictionary()
         {
             en_rus_Dictionary.Add("ChargeRateInMilliwatts", "Темп зарядки/розрядки, мВт");
@@ -50,9 +69,9 @@ namespace BatteryChecker.Model.Translators
             en_rus_Dictionary.Add("Caption", "Краткое описание батареи");
             en_rus_Dictionary.Add("DesignVoltage", "Напряжение, мВ");
             en_rus_Dictionary.Add("DeviceID", "ID батареи");
-            en_rus_Dictionary.Add("Name", "Модель батареи:");
-            en_rus_Dictionary.Add("SystemName", "Текущая система:");
-            en_rus_Dictionary.Add("Chemistry", "Химический состав:");
+            en_rus_Dictionary.Add("Name", "Модель батареи");
+            en_rus_Dictionary.Add("SystemName", "Текущая система");
+            en_rus_Dictionary.Add("Chemistry", "Химический состав");
             en_rus_Dictionary.Add("PbAc", "Свинцово-кислотный");
             en_rus_Dictionary.Add("LION", "Литий-ионный");
             en_rus_Dictionary.Add("Lion", "Литий-ионный");
@@ -64,9 +83,14 @@ namespace BatteryChecker.Model.Translators
             en_rus_Dictionary.Add("RAM", "Щелочно-марганцевый");
             en_rus_Dictionary.Add("DefaultAlert1", "Емкость для предупреждения 1, мВт");
             en_rus_Dictionary.Add("DefaultAlert2", "Емкость для предупреждения 2, мВт");
-            en_rus_Dictionary.Add("CriticalBias", "Смещение емкости:");
+            en_rus_Dictionary.Add("CriticalBias", "Смещение емкости");
         }
 
+        /// <summary>
+        /// Translate English word to Russian
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string Translate(string value)
         {
             en_rus_Dictionary.TryGetValue(value, out string valueTranslated);

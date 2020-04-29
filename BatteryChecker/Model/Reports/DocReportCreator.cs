@@ -14,7 +14,7 @@ namespace BatteryChecker.Model.Reports
     /// <summary>
     /// Class for creating reports in doc/docx formats
     /// </summary>
-    class DocReportCreator : IReportCreatorWIthTemplates
+    public class DocReportCreator : IReportCreatorWIthTemplates
     {
         /// <summary>
         /// Name table header with battery information

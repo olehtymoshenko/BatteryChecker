@@ -16,7 +16,7 @@ namespace BatteryChecker.ViewModel
     /// <summary>
     /// ViewModel for MainWindow 
     /// </summary>
-    class MainWindowViewModel
+    public class MainWindowViewModel
     {
         /// <summary>
         /// Collection for contain battery information
@@ -260,7 +260,7 @@ namespace BatteryChecker.ViewModel
     /// <summary>
     /// Struct which represent one battery property (name and value)
     /// </summary>
-    struct BatteryProperty
+    public struct BatteryProperty
     {
         /// <summary>
         /// Battery property name

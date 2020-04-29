@@ -8,13 +8,13 @@ namespace BatteryChecker.Model.Reports
     /// <summary>
     /// Interface for creating reports with battery info
     /// </summary>
-    interface IReportCreator
+    public interface IReportCreator
     {
         /// <summary>
         /// Create report
         /// </summary>
         /// <param name="path">path to file</param>
         /// <param name="batteryInfo">Battery information</param>
-        void CreateReport(string path, List<BatteryChecker.ViewModel.BatteryProperty> batteryInfo);
+        void CreateReport(string path, List<ViewModel.BatteryProperty> batteryInfo);
     }
 }

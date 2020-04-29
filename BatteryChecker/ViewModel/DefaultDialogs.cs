@@ -10,7 +10,7 @@ namespace BatteryChecker.ViewModel
     /// <summary>
     /// Class for using default windows dialogs
     /// </summary>
-    class DefaultDialogs
+    public class DefaultDialogs
     {
         /// <summary>
         /// Represent file type (extension)

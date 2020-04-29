@@ -15,7 +15,7 @@ namespace BatteryChecker.Model.Reports
     /// <summary>
     /// Class for creating PDF reports 
     /// </summary>
-    class PdfReportCreator: IReportCreator
+    public class PdfReportCreator: IReportCreator
     {
         /// <summary>
         /// Count columns in talbe with battery information, which will be inserted into pdf file
@@ -39,6 +39,7 @@ namespace BatteryChecker.Model.Reports
                     {
                         // create high-level abstract object - Document (using for inserting information in pdf file)
                         Document doc = new Document(pdfDoc);
+
                         //create font from file arial.ttf
                         PdfFont fontText = PdfFontFactory.CreateFont(Path.Combine(Environment.CurrentDirectory, "arial.ttf"), iText.IO.Font.PdfEncodings.IDENTITY_H, true);
 
