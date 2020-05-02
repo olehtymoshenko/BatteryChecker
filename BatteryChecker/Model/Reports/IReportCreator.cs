@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BatteryChecker.ViewModel;
 
 /// <summary>
 /// Namespace for creating reports with battery information
@@ -15,6 +16,6 @@ namespace BatteryChecker.Model.Reports
         /// </summary>
         /// <param name="path">path to file</param>
         /// <param name="batteryInfo">Battery information</param>
-        void CreateReport(string path, List<ViewModel.BatteryProperty> batteryInfo);
+        void CreateReport(string path, List<BatteryProperty> batteryInfo);
     }
 }

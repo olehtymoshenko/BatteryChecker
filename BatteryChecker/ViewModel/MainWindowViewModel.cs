@@ -34,7 +34,7 @@ namespace BatteryChecker.ViewModel
         public MainWindowViewModel()
         {
             properties = new ObservableCollection<BatteryProperty>();
-            InitializeProperiesDictionary();
+            InitializePropertiesDictionary();
             SetUpTimer();
 
         }
@@ -64,7 +64,7 @@ namespace BatteryChecker.ViewModel
         /// <summary>
         /// Get information about battrey from all available sources
         /// </summary>
-        private void InitializeProperiesDictionary()
+        private void InitializePropertiesDictionary()
         {
             try
             {

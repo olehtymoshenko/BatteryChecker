@@ -126,6 +126,7 @@ namespace BatteryChecker.Model.CommandKeys
                 {
                     MainWindowViewModel vm = new MainWindowViewModel();
                     creator.CreateReport(CommandParams[1], vm.properties.ToList());
+                    TryPrintErrorToParrentConsole(null, "\t *** Отчет успешно создан! *** \n", false);
                 }
                 else throw new ArgumentException("Ошибка! Путь для файла не передан");
             }
@@ -155,6 +156,7 @@ namespace BatteryChecker.Model.CommandKeys
                 {
                     MainWindowViewModel vm = new MainWindowViewModel();
                     creatorTemplates.InsertBatteryInfoIntoTemplate(CommandParams[1], vm.properties.ToList());
+                    TryPrintErrorToParrentConsole(null, "\t *** Данные успешно добавлены в шаблон! ***\n", false);
                 }
                 else throw new ArgumentException("Ошибка! Путь для файла не передан");
             }
@@ -178,7 +180,7 @@ namespace BatteryChecker.Model.CommandKeys
         /// </summary>
         /// <param name="e">Happend exception</param>
         /// <param name="errorMsg">Custom message for printing to the console</param>
-        /// <param name="printExceptionMessage">true - print errorMsg and exception.Message, false - print olny errorMsg</param>
+        /// <param name="printExceptionMessage">true - print exception.Message, false - print olny errorMsg</param>
         private void TryPrintErrorToParrentConsole(Exception e, string errorMsg, bool printExceptionMessage)
         {
             try
@@ -189,7 +191,7 @@ namespace BatteryChecker.Model.CommandKeys
                 else
                     Console.WriteLine(errorMsg + "\n"); 
                 FreeConsole();
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
             catch (Exception innerE)
             {
