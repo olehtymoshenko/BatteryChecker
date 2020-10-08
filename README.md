@@ -22,3 +22,6 @@
 ### - Win32 API 
 ### - WMI (Windows Management Interface)
 
+
+## Class diagram
+<div style="text-align:center"><img src="https://user-images.githubusercontent.com/40433027/95461819-58c90e00-097f-11eb-89d2-0c649ca79787.png" /></div>
